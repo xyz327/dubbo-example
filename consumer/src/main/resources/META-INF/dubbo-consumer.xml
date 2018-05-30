@@ -15,4 +15,14 @@
   local regular interface -->
   <dubbo:reference id="helloService" check="true" interface="cn.xz.dubbo.api.HelloService"/>
 
+
+  <!--参数回调bean-->
+  <dubbo:reference id="callbackService" interface="cn.xz.dubbo.api.CallbackService"/>
+
+  <!--事件通知-->
+  <bean id="eventServiceNotify" class="cn.xz.dubbo.consumer.event.EventServiceNotifyImpl"/>
+  <dubbo:reference id="eventService" interface="cn.xz.dubbo.api.event.EventService">
+    <dubbo:method name="testEvent" oninvoke="eventServiceNotify.oninvoke" onreturn="eventServiceNotify.onreturn"
+      onthrow="eventServiceNotify.onthrow"/>
+  </dubbo:reference>
 </beans>

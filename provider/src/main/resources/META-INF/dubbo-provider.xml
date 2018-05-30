@@ -19,4 +19,20 @@
 
   <!-- declare the service interface to be exported -->
   <dubbo:service interface="cn.xz.dubbo.api.HelloService" ref="helloService" timeout="1000"/>
+
+  <!--参数回调bean-->
+  <bean id="callbackService" class="cn.xz.dubbo.provider.impl.CallbackServiceImpl"/>
+  <dubbo:service interface="cn.xz.dubbo.api.CallbackService" ref="callbackService" callbacks="1000">
+    <dubbo:method name="callback">
+      <dubbo:argument index="1" callback="true"/>
+      <!--也可以通过指定类型的方式-->
+      <!--<dubbo:argument type="java.util.function.Consumer" callback="true" />-->
+    </dubbo:method>
+  </dubbo:service>
+
+  <!--事件通知-->
+  <bean id="eventService" class="cn.xz.dubbo.provider.impl.EventServiceImpl"/>
+  <dubbo:service interface="cn.xz.dubbo.api.event.EventService" ref="eventService">
+
+  </dubbo:service>
 </beans>
